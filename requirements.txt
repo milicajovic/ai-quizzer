@@ -15,6 +15,7 @@ click~=8.1.7
 SQLAlchemy~=2.0.31
 Flask-WTF
 gunicorn
-psycopg2-binary
+#psycopg2-binary
 langcodes
 google-cloud-texttospeech
+pymssql
