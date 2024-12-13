@@ -62,17 +62,4 @@ jobs:
         with:
           app-name: 'qizzer-ai'
           general-settings-json: '{"linuxFxVersion": "PYTHON|3.9", "appCommandLine": "gunicorn --bind=0.0.0.0:8181 run:app"}'
-
-      - name: Set Environment Variables
-        uses: azure/appservice-settings@v1
-        with:
-          app-name: 'qizzer-ai'
-          app-settings-json: |
-            [
-              { "name": "FLASK_ENV", "value": "production" },
-              { "name": "GOOGLE_CLIENT_ID", "value": "${{ secrets.GOOGLE_CLIENT_ID }}" },
-              { "name": "GOOGLE_CLIENT_SECRET", "value": "${{ secrets.GOOGLE_CLIENT_SECRET }}" },
-              { "name": "GEMINI_API_KEY", "value": "${{ secrets.GEMINI_API_KEY }}" },
-              { "name": "DEV_DATABASE_URL", "value": "${{ secrets.DEV_DATABASE_URL }}" },
-              { "name": "DB_URL", "value": "${{ secrets.DB_URL }}" }
-            ]         
+   

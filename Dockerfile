@@ -26,10 +26,10 @@ RUN pip install --upgrade pip && \
 COPY . .
 
 # Expose the port the app runs on
-EXPOSE 8181
+EXPOSE 8080
 
 # Set Python path
 ENV PYTHONPATH=/app
 
 # Run the application
-CMD ["gunicorn", "--bind", "0.0.0.0:8181", "run:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "run:app"]
