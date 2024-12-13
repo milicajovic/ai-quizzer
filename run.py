@@ -4,10 +4,10 @@ from flask_migrate import Migrate
 #from app.models.user import User
 #from app.models.models import Quiz, Question, Answer, PageScan
 
-app = create_app()
-# app = create_app(os.getenv('FLASK_CONFIG') or 'default')
-# migrate = Migrate(app, db)
-# from flask_migrate import Migrate
+#app = create_app()
+app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+migrate = Migrate(app, db)
+from flask_migrate import Migrate
 #
 # @app.cli.command("init-db")
 # def init_db():
