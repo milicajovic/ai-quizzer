@@ -61,7 +61,7 @@ jobs:
         uses: azure/appservice-settings@v1
         with:
           app-name: 'qizzer-ai'
-          general-settings-json: '{"linuxFxVersion": "PYTHON|3.9", "appCommandLine": "gunicorn --bind=0.0.0.0:8080 run:app"}'
+          general-settings-json: '{"linuxFxVersion": "PYTHON|3.9", "appCommandLine": "gunicorn --bind=0.0.0.0:8181 run:app"}'
 
       - name: Set Environment Variables
         uses: azure/appservice-settings@v1
