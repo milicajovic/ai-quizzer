@@ -1,9 +1,9 @@
 import json
 from typing import List, Dict, Any, Optional
-
+from flask import current_app
 from .config import DEFAULT_PRO_MODEL
 from .utils import execute_genai_operation
-
+import re
 
 def generate_questions(image_paths: List[str], model_name: str = DEFAULT_PRO_MODEL) -> Optional[List[Dict[str, Any]]]:
     """
@@ -29,17 +29,28 @@ def generate_questions(image_paths: List[str], model_name: str = DEFAULT_PRO_MOD
     * be very careful to provide VALID JSON!
     """
 
-    result = None
+    result = []
     for image_path in image_paths:
-        response = execute_genai_operation(prompt, file_paths=image_path, mime_type="image/jpeg", model_name=model_name)
-        if response:
-            try:
-                parsed_response = json.loads(response)
-                if result is None:
-                    result = parsed_response
-                else:
-                    result.extend(parsed_response)
-            except json.JSONDecodeError:
-                print(f"Failed to parse JSON for image: {image_path}")
+        response = execute_genai_operation(
+            prompt, file_paths=image_path, mime_type="image/jpeg", model_name=model_name)
+                                                                
+        if not response or not response.strip():                    # Ako je odgovor prazan ili sadrži samo praznine, logujemo grešku i preskačemo obradu
+            current_app.logger.error(f"Empty response received for image: {image_path}")
+            continue 
+                                                                          
+        try:                                                        # Očisti odgovor i parsiraj JSON
+            match = re.search(r"\[.*\]", response, re.DOTALL)       # Tražimo JSON blok unutar odgovora pomoću regularnih izraza
+            if match: 
+                clean_json = match.group(0)                         # Ako je JSON pronađen, izdvajamo ga
+                parsed_response = json.loads(clean_json)            # Parsiramo izdvojeni JSON string u Python listu (listu pitanja)
+                if not isinstance(parsed_response, list):           # Proveravamo da li je parsirani odgovor zapravo lista (što očekujemo)
+                    raise ValueError("Parsed JSON is not a list.")  # Ako nije lista, podižemo grešku
+                result.extend(parsed_response)                      # Dodajemo sva pitanja iz parsiranog odgovora u rezultat
+            else:
+                raise ValueError("JSON block not found in response.")
+        except (json.JSONDecodeError, ValueError) as e:
+            current_app.logger.error(f"Failed to parse JSON for image {image_path}: {response}. Error: {str(e)}")
+            continue                                                # Preskačemo ovu iteraciju i nastavljamo sa sledećom slikom
 
     return result
+  
