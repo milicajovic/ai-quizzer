@@ -1,4 +1,5 @@
 import LanguageUtils from './language_utils.js';
+import TextToSpeechEngine from './text_to_speech_engine.js';
 
 class SpeechRecognitionHandler {
     constructor(submitUrl, questionId, sessionId) {
