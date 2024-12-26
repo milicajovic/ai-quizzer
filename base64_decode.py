@@ -3,7 +3,7 @@ import base64
 import tempfile
 
 def setup_google_credentials():
-    BASE64_KEY = os.getenv("GOOGLE_APPLICATION_CREDENTIALS_BASE64")
+    BASE64_KEY = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS_BASE64")
 
     if BASE64_KEY:
         json_bytes = base64.b64decode(BASE64_KEY)
