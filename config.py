@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+import base64_decode
 
 # Load environment variables from .env file
 load_dotenv()
@@ -9,6 +10,7 @@ def get_required_env_var(var_name):
     if not value:
         raise ValueError(f"Missing required environment variable: {var_name}")
     return value
+
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
     GOOGLE_CLIENT_ID = get_required_env_var('GOOGLE_CLIENT_ID')
@@ -16,7 +18,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOAD_FOLDER = os.environ.get('UPLOAD_FOLDER') or 'audio_uploads'
     GEMINI_API_KEY = get_required_env_var('GEMINI_API_KEY')
-    BASE64_KEY = os.getenv("GOOGLE_APPLICATION_CREDENTIALS_BASE64")
+    BASE64_KEY = get_required_env_var("GOOGLE_APPLICATION_CREDENTIALS_BASE64") or base64_decode.setup_google_credentials()
     SQLALCHEMY_ECHO = False  # Default to False, enable per environment as needed
 
     @staticmethod
