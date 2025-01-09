@@ -1,5 +1,6 @@
 import os
 import unittest
+from tests.decorators import measure_time
 from google.api_core import exceptions
 from app import create_app
 from google_ai.audio_answer_evaluator import evaluate_audio_answer
@@ -24,6 +25,7 @@ class TestAudioLanguageEvaluator(unittest.TestCase):
     def tearDown(self):
         self.app_context.pop()
 
+    @measure_time
     def test_evaluate_audio_answer(self):
         try:
             result = list(evaluate_language_audio("en",
@@ -51,6 +53,7 @@ class TestAudioLanguageEvaluator(unittest.TestCase):
         except Exception as e:
             self.fail(f"Unexpected error occurred: {str(e)}")
 
+    @measure_time
     def test_sorry_audio_answer(self):
         result = list(evaluate_language_audio("hr",
                                               "de",
@@ -68,7 +71,7 @@ class TestAudioLanguageEvaluator(unittest.TestCase):
         print("Full response:")
         print(full_response)
 
-
+    @measure_time
     def test_empty_audio_(self):
         try:
             # question = "In welchem Jahr startete die französische Armee ihren Russlandfeldzug?"
@@ -98,7 +101,7 @@ class TestAudioLanguageEvaluator(unittest.TestCase):
         except Exception as e:
             self.fail(f"Unexpected error occurred: {str(e)}")
 
-
+    @measure_time
     def test_file_not_found(self):
         non_existent_path = "non_existent_file.wav"
         # result = list(evaluate_audio_answer(self.question, self.correct_answer, non_existent_path))

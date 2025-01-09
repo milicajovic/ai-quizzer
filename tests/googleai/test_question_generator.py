@@ -1,5 +1,6 @@
 import unittest
 from unittest import mock
+from tests.decorators import measure_time
 import os
 from flask import current_app
 from google_ai import generate_questions, config
@@ -23,7 +24,7 @@ class TestQuestionGenerator(unittest.TestCase):
     def tearDown(self):
         self.app_context.pop()
 
-   
+    @measure_time
     def test_generate_questions_single_image(self):
         if not self.single_image:
             self.skipTest("No test images available")
@@ -37,7 +38,7 @@ class TestQuestionGenerator(unittest.TestCase):
             self._assert_valid_question(question)
             print(question)
 
-   
+    @measure_time
     def test_generate_questions_multiple_images(self):
         if len(self.image_files) < 2:
             self.skipTest("Not enough test images available")
@@ -51,7 +52,7 @@ class TestQuestionGenerator(unittest.TestCase):
             self._assert_valid_question(question)
             print(question)
 
-
+    @measure_time
     def test_generate_questions_invalid_image(self):
         invalid_file = os.path.join(TEST_IMAGES_DIR, 'nonexistent.jpg')
         with self.assertRaises(Exception):  # Adjust the exception type as needed
@@ -89,7 +90,7 @@ class TestQuestionGenerator(unittest.TestCase):
     #     finally:
     #         config.DEFAULT_PRO_MODEL = original_model
 
-    
+    @measure_time
     # @mock.patch('google_ai.question_generator.execute_genai_operation')
     def test_generate_questions_respects_model_config(self, mock_execute):        
         if not self.single_image:

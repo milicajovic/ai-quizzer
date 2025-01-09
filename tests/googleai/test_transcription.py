@@ -1,5 +1,6 @@
 import unittest
 import os
+from tests.decorators import measure_time
 from google_ai import transcribe_audio
 from tests.test_config import DUMMY_SERBIAN
 from app import create_app
@@ -14,6 +15,7 @@ class TestTranscription(unittest.TestCase):
     def tearDown(self):
         self.app_context.pop()
 
+    @measure_time
     def test_transcribe_dummy_serbian(self):
         # Ensure the test file exists
         self.assertTrue(os.path.exists(DUMMY_SERBIAN), f"Test file not found: {DUMMY_SERBIAN}")

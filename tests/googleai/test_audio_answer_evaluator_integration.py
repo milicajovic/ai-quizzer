@@ -1,4 +1,5 @@
 import unittest
+from tests.decorators import measure_time
 from google_ai.audio_answer_evaluator import evaluate_audio_answer
 from google.api_core import exceptions
 from flask import current_app
@@ -22,6 +23,7 @@ class TestAudioAnswerEvaluatorIntegration(unittest.TestCase):
     def tearDown(self):
         self.app_context.pop()
 
+    @measure_time
     def test_evaluate_audio_answer(self):
         try:
             result = list(evaluate_audio_answer(self.question, self.correct_answer, self.audio_path))
@@ -47,6 +49,7 @@ class TestAudioAnswerEvaluatorIntegration(unittest.TestCase):
         except Exception as e:
             self.fail(f"Unexpected error occurred: {str(e)}")
 
+    @measure_time
     def test_empty_audio_(self):
         try:
             #question = "In welchem Jahr startete die französische Armee ihren Russlandfeldzug?"
@@ -76,6 +79,7 @@ class TestAudioAnswerEvaluatorIntegration(unittest.TestCase):
         except Exception as e:
             self.fail(f"Unexpected error occurred: {str(e)}")
 
+    @measure_time
     def test_file_not_found(self):
         non_existent_path = "non_existent_file.wav"
         # result = list(evaluate_audio_answer(self.question, self.correct_answer, non_existent_path))
