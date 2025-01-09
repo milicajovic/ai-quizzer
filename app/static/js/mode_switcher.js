@@ -26,6 +26,18 @@ class ModeSwitcher {
     updateLabel(mode) {
         this.modeLabel.textContent = mode === 'text' ? 'Switch to Audio Mode' : 'Switch to Text Mode';
     }
+
+    disableModeToggle() {
+        if (this.modeToggle) {
+            this.modeToggle.disabled = true;
+        }
+    }
+
+    enableModeToggle() {
+        if (this.modeToggle) {
+            this.modeToggle.disabled = false;
+        }
+    }
 }
 
 export default new ModeSwitcher();

@@ -1,5 +1,6 @@
 import TtsStreamProcessor from "./tts_stream_processor.js";
 import quizSessionInstance from './quiz_session.js';
+import mode_switcher from "./mode_switcher.js";
 
 class AudioRecorder {
     constructor(submitUrl, questionId, sessionId, useServerTTS = false) {
@@ -173,6 +174,7 @@ class AudioRecorder {
     }
 
     sendAudioToServer(audioBlob) {
+        mode_switcher.disableModeToggle();  // Disable mode switcher while processing
         const formData = new FormData();
         formData.append("audio", audioBlob, "recording.wav");
         formData.append("question_id", this.questionId);
@@ -216,6 +218,7 @@ class AudioRecorder {
             .finally(() => {
                 // Call reset method after processing is complete
                 setTimeout(() => this.reset(), 1000); // 5-second delay before resetting
+                mode_switcher.enableModeToggle();  // Re-enable mode switcher after processing
             });
         ;
     }
@@ -230,7 +233,7 @@ class AudioRecorder {
         } else {
             this.log("playing " + result.audio_file)
 
-              // Display feedback
+            // Display feedback
             this.resultText.innerHTML = `<p>${result.feedback}</p>`;
 
             // Display scores

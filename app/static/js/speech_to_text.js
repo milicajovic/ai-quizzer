@@ -1,5 +1,6 @@
 import LanguageUtils from './language_utils.js';
 import TextToSpeechEngine from './text_to_speech_engine.js';
+import mode_switcher from './mode_switcher.js';
 
 class SpeechRecognitionHandler {
     constructor(submitUrl, questionId, sessionId) {
@@ -85,6 +86,7 @@ class SpeechRecognitionHandler {
     }
 
     sendTranscriptToServer(transcript) {
+        mode_switcher.disableModeToggle();  // Disable mode switcher while processing
         this.log("sendTranscriptToServer")
         this.processingFeedback.style.display = 'block';
         this.recordButton.disabled = true;
@@ -126,6 +128,7 @@ class SpeechRecognitionHandler {
 
     handleFetchFinally() {
         this.recordButton.disabled = false;
+        mode_switcher.enableModeToggle()  // Disable mode switcher while processing
     }
 
     addRecordButtonListeners() {
