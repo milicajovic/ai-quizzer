@@ -296,7 +296,7 @@ def evaluate_audio_server():
 
         # Clean the SSML before generating speech
         cleaned_ssml = remove_scoring_from_ssml(ssml)
-        mp3_file_path = generate_speech_from_ssml(cleaned_ssml)
+        mp3_file_path = generate_speech_from_ssml(cleaned_ssml, quiz.lng)
 
         return jsonify({
             'audio_file': mp3_file_path,
