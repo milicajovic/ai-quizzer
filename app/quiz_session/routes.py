@@ -306,8 +306,8 @@ def evaluate_audio():
         current_app.logger.info(f"Audio file processed: {audio_file_path}")
 
         evaluation_gen = generate_audio_evaluation(question, audio_file_path, current_user.id, prep_session.id)
-        filtered_stream = filter_feedback_stream(evaluation_gen)
-        return Response(stream_with_context(filtered_stream), content_type='text/plain')
+        # filtered_stream = filter_feedback_stream(evaluation_gen)
+        return Response(stream_with_context(evaluation_gen), content_type='text/plain')
 
     except Exception as e:
         error_message = f"Error in evaluate_audio: {str(e)}"
