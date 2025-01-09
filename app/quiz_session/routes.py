@@ -107,7 +107,7 @@ def answer_question(session_id):
     if not current_question:
         raise NotFound("No question found when one was expected. The quiz may be in an inconsistent state.")
 
-    progress_percentage = (answered_count / total_count) * 100
+    progress_percentage = round((answered_count / total_count) * 100) if total_count > 0 else 0
 
     # Use the answer_mode from the session, defaulting to 'audio' if not set
     answer_mode = session.get('answer_mode', 'audio')
