@@ -1,3 +1,4 @@
+import time
 from flask import render_template, redirect, url_for, flash, request, abort, current_app
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
@@ -7,7 +8,8 @@ from . import quiz
 from .forms import CreateQuizForm, EditQuizForm, QuestionForm
 from .. import db
 from ..models import Quiz, Question, PageScan, PrepSession
-from google_ai import generate_questions , generate_quiz_title # Updated import statement
+from google_ai import generate_questions 
+from google_ai.generate_quiz_title import generate_quiz_title # Updated import statement
 from flask import jsonify
 
 
@@ -56,7 +58,7 @@ def my_sessions():
     for session in prep_sessions:
         total_questions = session.get_total_quiz_questions_count()
         answered_questions = session.get_distinct_answered_questions_count()
-        progress_percentage = (answered_questions / total_questions) * 100 if total_questions > 0 else 0
+        progress_percentage = round((answered_questions / total_questions) * 100) if total_questions > 0 else 0
 
         sessions_data.append({
             'id': session.id,
