@@ -4,8 +4,8 @@ Shared configuration settings for Google AI services.
 
 # Default model names
 #DEFAULT_MODEL = "gemini-1.5-pro-exp-0801"
-DEFAULT_MODEL = "gemini-1.5-pro"
-#DEFAULT_MODEL = "gemini-1.5-flash"
+#DEFAULT_MODEL = "gemini-1.5-pro"
+DEFAULT_MODEL = "gemini-1.5-flash"
 
 DEFAULT_PRO_MODEL = "gemini-1.5-pro-latest"
 
