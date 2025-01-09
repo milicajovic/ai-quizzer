@@ -130,7 +130,7 @@
         import TextToSpeech from '/static/js/text_to_speech_engine.js';
         import QuizSessionTTS from '/static/js/quiz_session_tts.js';
 
-        const QUESTION_ID = "{{ question.id }}";
+        window.QUESTION_ID = "{{ question.id }}";
         const SESSION_ID = "{{ session_id }}";
 
         TextToSpeech.getInstance().init()

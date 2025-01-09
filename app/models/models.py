@@ -109,6 +109,9 @@ class PrepSession(db.Model):
 
     def get_total_quiz_questions_count(self):
         return Question.query.filter_by(quiz_id=self.quiz_id).count()
+    
+    def get_question_by_id(self, question_id):
+        return Question.query.filter_by(id=question_id, quiz_id=self.quiz_id).first()
 
 class PageScan(db.Model):
     __tablename__ = 'page_scan'

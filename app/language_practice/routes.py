@@ -108,7 +108,14 @@ def answer_question(session_id):
     if answered_count >= total_count:
         return redirect(url_for('language_practice.complete', session_id=session_id))
 
-    current_question = prep_session.get_current_question()
+    # Provera da li je prosleđen q_id (ID pitanja)
+    q_id = request.args.get('q_id')
+    if q_id:
+        current_question = prep_session.get_question_by_id(q_id)
+        if not current_question:
+            raise NotFound(f"Question with ID {q_id} not found in this quiz.")
+    else:
+        current_question = prep_session.get_current_question()
     if not current_question:
         raise NotFound("No question found when one was expected. The quiz may be in an inconsistent state.")
 

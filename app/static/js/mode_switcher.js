@@ -15,8 +15,12 @@ class ModeSwitcher {
 
     toggleMode() {
         const newMode = this.modeToggle.checked ? 'text' : 'audio';
-        this.updateLabel(newMode);
-        window.location.href = `${window.location.pathname}?set_mode=${newMode}`;
+        const isToggle = true; // Dodaj is_toggle kao deo URL-a
+        this.updateLabel(newMode); 
+        const params = new URLSearchParams(window.location.search);
+        params.set('set_mode', newMode);
+        params.set('q_id', QUESTION_ID);
+        window.location.href = `${window.location.pathname}?${params.toString()}`;
     }
 
     updateLabel(mode) {
