@@ -274,6 +274,7 @@ def evaluate_audio_server():
             prompt=question.question_text,
             audio_file=audio_file_path
         )
+        ssml = clean_input(ssml)
         print(ssml)
 
         # Strip SSML tags for plain text
@@ -318,7 +319,10 @@ def evaluate_audio_server():
     #         except Exception as e:
     #             current_app.logger.warning(f"Failed to delete audio file {audio_file_path}: {str(e)}")
 
-
+def clean_input(ssml_text):
+    # Ukloni "```xml" oznake i dodatne znakove
+    return ssml_text.replace('```xml', '').replace('```', '').strip()
+    
 def extract_lng_scores(plain_text):
     # Split the text into feedback and scores
     parts = plain_text.split('###')
