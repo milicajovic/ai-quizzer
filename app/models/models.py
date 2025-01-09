@@ -7,9 +7,9 @@ from sqlalchemy.orm import relationship
 from ..extensions import db
 
 class QuizType(Enum):
-    LANGUAGE = "Language"
     QUESTIONS = "Questions"
-
+    LANGUAGE = "Language"
+    
 class DifficultyLevel(Enum):
     EASY = "easy"
     MEDIUM = "medium"

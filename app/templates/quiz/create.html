@@ -8,17 +8,17 @@
             {{ form.title(class="form-control") }}
         </div>
         <div class="mb-3">
+            {{ form.type.label(class="form-label") }}
+            {{ form.type(class="form-select") }}
+        </div>
+        <div class="mb-3">
             {{ form.lng.label(class="form-label") }}
             {{ form.lng(class="form-select") }}
         </div>
         <div class="mb-3">
             {{ form.target_lng.label(class="form-label") }}
             {{ form.target_lng(class="form-select") }}
-        </div>
-        <div class="mb-3">
-            {{ form.type.label(class="form-label") }}
-            {{ form.type(class="form-select") }}
-        </div>
+        </div>        
         <div class="mb-3">
             {{ form.images.label(class="form-label") }}
             {{ form.images(class="form-control", accept="image/*", multiple=true) }}
