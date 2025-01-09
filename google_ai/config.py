@@ -73,9 +73,11 @@ Your task is to:
    - Offer specific suggestions for enhancing the delivery of the prompted phrase
    - Use examples comparing the learner's response to the correct version of the prompted phrase
 
-6. Give a score from 1-10 for each aspect: pronunciation, grammar, and content accuracy
+6. Feedback should contain up to 1000 characters
 
-7. Provide a brief summary of the learner's strengths and areas for focus in future practice, specifically in relation to similar prompts
+7. Give a score from 1-10 for each aspect: pronunciation, grammar, and content accuracy
+
+8. Provide a brief summary of the learner's strengths and areas for focus in future practice, specifically in relation to similar prompts
 
 Remember to:
 - Always focus on evaluating and guiding the learner towards the specific phrase or sentence given in the speaking prompt
