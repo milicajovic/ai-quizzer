@@ -2,7 +2,7 @@ from flask import Request, redirect
 from werkzeug.wrappers import Response
 from urllib.parse import urljoin
 
-PRIMARY_DOMAIN = 'ai-quizzer.com'
+PRIMARY_DOMAIN = 'ai-quiz.me'
 
 
 def redirect_middleware(app):
