@@ -62,7 +62,15 @@ class QuizSession {
         this.log('Stopping speech');
         const textToSpeechInstance = TextToSpeechEngine.getInstance();
         textToSpeechInstance.stopSpeaking();
-        //todo stop mp3 playback
+        this.stopAudio();
+    }
+
+    stopAudio() {
+        const audioPlayer = document.getElementById('audioPlayer');
+        if (audioPlayer) {
+            audioPlayer.pause(); // Pauziraj trenutnu reprodukciju
+            audioPlayer.currentTime = 0; // Resetuj na početak
+        }
     }
 
     showActionButtons() {
@@ -82,9 +90,26 @@ class QuizSession {
     }
 
     loadNextQuestion() {
+        // Proveri trenutni status "autoReadResults" iz localStorage
+        const autoReadEnabled = localStorage.getItem('autoReadResults') === 'true';
+        this.log(`Auto-read enabled for next question: ${autoReadEnabled}`);
+
         // Redirect to the next question
         if (typeof nextQuestionUrl !== 'undefined') {
             window.location.href = nextQuestionUrl;
+            // Kada se novo pitanje učita, automatski ga pročitaj (ako je uključeno)
+            if (autoReadEnabled) {
+                // Koristi TTS za čitanje pitanja nakon učitavanja
+                setTimeout(() => {
+                    const quizSessionTTS = QuizSessionTTS; // Osiguraj da je TTS već inicijalizovan
+                    if (quizSessionTTS && typeof quizSessionTTS.readQuestion === 'function') {
+                        quizSessionTTS.readQuestion();
+                    } else {
+                        console.error('QuizSessionTTS or readQuestion is not available');
+                    }
+                }, 1000); // Dodaj mali delay ako je potrebno da se DOM osveži
+            }
+
         } else {
             console.error('nextQuestionUrl is not defined');
         }

@@ -41,6 +41,13 @@ class TtsStreamProcessor {
     handleStreamChunk(chunk) {
         this.textBuffer += chunk;
         this.resultText.textContent += chunk;
+        const autoReadEnabled = localStorage.getItem('autoReadResults') === 'true'; // Proveri stanje Auto-Read
+    
+        // Ako je Auto-Read isključen, ne procesuiraj recenice
+        if (!autoReadEnabled) {
+            console.log("Auto-read is disabled. Skipping all sentences.");
+            return;
+        }        
         this.processSentences();
     }
 

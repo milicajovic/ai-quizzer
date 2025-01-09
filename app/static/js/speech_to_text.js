@@ -112,11 +112,20 @@ class SpeechRecognitionHandler {
         this.feedbackText.textContent = result;
         this.actionButtons.classList.remove('d-none');
 
-        const autoReadCheckbox = document.getElementById('autoReadResults');
-        if (autoReadCheckbox && autoReadCheckbox.checked) {
-            this.textToSpeechInstance.speakWithoutBuffering(result);
-
-        }
+         // Provera stanja Auto-Read iz localStorage
+         const autoReadEnabled = localStorage.getItem('autoReadResults') === 'true';
+         if (autoReadEnabled) {
+             // Provera da li je TextToSpeech inicijalizovan pre čitanja
+             const textToSpeechInstance = TextToSpeechEngine.getInstance();
+             if (textToSpeechInstance.isInitialized) {
+                 this.log('Reading feedback aloud');
+                 textToSpeechInstance.speakWithoutBuffering(result);
+             } else {
+                 console.error('TextToSpeech instance not initialized. Cannot read feedback aloud.');
+             }
+         } else {
+             this.log('Auto-read is disabled. Feedback will not be read aloud.');
+         }
     }
 
     handleFetchError(error) {

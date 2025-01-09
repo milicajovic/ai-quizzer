@@ -50,6 +50,11 @@ class TextToSpeechEngine {
                         this.setupVoiceSelection();
                         this.isInitialized = true;
                         resolve(true);
+                        
+                        // Dodavanje listener-a za 'beforeunload'
+                        window.addEventListener('beforeunload', () => {
+                        this.stopSpeaking(); // Zaustavi govor kada se stranica napusti
+                        });                        
                     })
                     .catch((error) => {
                         reject(error);

@@ -34,6 +34,14 @@ class QuizSessionTTS {
     readQuestionText() {
         const questionText = document.getElementById('question-text')?.textContent;
         this.log(`Question text: ${questionText}`);
+
+        // Proveri trenutni status Auto-Read pre nego što pročitaš pitanje
+        const autoReadEnabled = this.checkAutoReadState();
+        if (!autoReadEnabled) {
+            this.log('Auto-read is disabled. Skipping reading.');
+            return;
+        }
+        
         const textToSpeechInstance = TextToSpeechEngine.getInstance();
         if (questionText && textToSpeechInstance.isInitialized) {
             this.log('Reading question aloud');

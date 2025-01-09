@@ -246,8 +246,15 @@ class AudioRecorder {
                 </div>
             `;
             this.resultText.innerHTML += scoresHtml;
-            const mp3Url = '/play-audio?file=' + encodeURIComponent(result.audio_file);
-            this.playMp3(mp3Url);
+
+            // Check auto-read state before playing audio
+            const autoReadEnabled = localStorage.getItem('autoReadResults') === 'true';
+            if (autoReadEnabled) {
+                const mp3Url = '/play-audio?file=' + encodeURIComponent(result.audio_file);
+                this.playMp3(mp3Url);
+            } else {
+                this.log('Auto-read is disabled. Skipping audio playback.');
+            }
         }
         this.recordButton.disabled = false;
     }
