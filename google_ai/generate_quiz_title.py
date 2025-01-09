@@ -25,7 +25,7 @@ def generate_quiz_title(questions, model_name=DEFAULT_MODEL):
 
         # Prepare the prompt
         questions_text = "\n".join([f"- {q.question_text}" for q in questions])
-        prompt = f"Generate a concise and engaging title for a quiz based on these questions:\n{questions_text}\nThe title should be no more than 6 words long."
+        prompt = f"Generate a concise and engaging title for a quiz based on these questions:\n{questions_text}\nThe title should be no more than 6 words long. The title should be in the same language and same spelling as the questions."
 
         # Generate the title
         response = model.generate_content(prompt)
