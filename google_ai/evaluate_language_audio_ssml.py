@@ -42,7 +42,6 @@ Ensure that you use appropriate voice names for each language. Common voice name
 - Serbian: sr-RS-Standard-A
 - Croatian: sr-RS-Standard-A
 - Hrvatski: sr-RS-Standard-A
-- Spanish: es-ES-Standard-A
 """
 
 
